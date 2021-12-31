@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>超大数据渲染</title>
+    <style>
+        .title{
+            text-align: center;
+            font-size: 16px;
+        }
+    </style>
+    <script src="./main.js"></script>
+</head>
+<body>
+    <div class="title">超大数据渲染</div>
+    <div>
+        <input type="number" id='renderCount' placeholder="默认100000条数据">
+        <button onclick="directRender()">直接渲染</button>
+        <button onclick="renderBigData()">RAF+Fragement渲染</button>
+    </div>
+    <div style="color:#a4a4a4;margin-bottom:10px;font-size: 12px;">
+        因为浏览器渲染进程和JS进程是互斥的，渲染进程占用时间过长会导致浏览器假死用户无法操作，所以大量数据渲染的情况下，采用切片渲染并且使用window.requestAnimationFrame<br />
+        一帧内浏览器需要处理:<br />
+        1.处理用户的交互<br />
+        2.JS 解析执行<br />
+        3.帧开始。窗口尺寸变更，页面滚去等的处理<br />
+        4.requestAnimationFrame(rAF)<br />
+        5.布局<br />
+        6.绘制<br />
+    </div>
+    <div style="color:#a4a4a4;margin-bottom:10px;text-align: center;font-size: 12px;" id='renderInfo'></div>
+    <div id="container">
+    </div>
+    
+</body>
+</html>
