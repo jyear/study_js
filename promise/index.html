@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="./promise.js"></script>
+</head>
+<body>
+    
+    <script>
+
+        const d=function(){
+            return new MyPromise((resolve,reject)=>{
+                setTimeout(()=>{
+                    reject('模拟报错');
+                },1000);       
+            })
+        }
+        const d1=function(){
+            return new MyPromise((resolve)=>{
+                setTimeout(()=>{
+                    resolve('d1');
+                },2000);       
+            })
+        }
+        const d3=function(){
+            return new MyPromise((resolve)=>{
+                setTimeout(()=>{
+                    resolve('d2');
+                },3000);       
+            })
+        }
+       
+       //  d().catch(err=>{console.log(new Date().getTime(),err)})
+
+        MyPromise.all([d(),d1(),d3()]).then(res=>{
+            console.log('外部成功1',res)
+            return res;
+        }).catch(err=>{console.error('外部失败：',err)});
+       
+        
+        // const data2=MyPromise.race([d(),d1(),d3()]);
+        // data2.then((res)=>{
+        //     console.log(res)
+        // })
+
+
+        // new MyPromise((resolve,reject)=>{
+        //     setTimeout(()=>{
+        //         console.log('开始执行')
+        //         reject(3322222)
+        //     },3000);
+        // }).then(res=>{
+        //     console.log(111,res);
+        //     return 'sdsdsds'
+        // }).then(res=>{  
+        //     console.log(111,res);
+        //     return new MyPromise(resolve=>{
+        //         resolve(`${res}_新`)
+        //     })
+        // }).then(res=>{  
+        //     console.log(111,res);
+        //     return new MyPromise(resolve=>{
+        //         resolve(`${res}_新2`)
+        //     })
+        // }).then(res=>{
+        //     console.log(111,res);
+        // }).catch(res=>{
+        //     console.log(444,res);
+        // })
+
+    </script>
+</body>
+</html>
