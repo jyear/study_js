@@ -8,7 +8,18 @@
     <script src="./promise.js"></script>
 </head>
 <body>
-    
+    <div id="content" style="text-align: center;">
+        手写简化版的Promise
+    </div>
+    <div>
+        1.then的链式调用在于返回一个新的New MyPromise实例<br />
+        2.catch只是then的一个语法糖，在触发reject的时候<br />
+        3.所有的then和catch的回调都保存在MyPromise实例的successCallbacks[],errorCallbacks[]内，触发的时候遍历数组调用<br />
+        4.MyPromise.all静态方法，遍历传入的promise,并且把所有的promise的结果放到一个数组中，返回一个新的promise实例<br />
+        5.MyPromise.race静态方法，遍历传入的promise，并且把第一个promise的结果返回，返回一个新的promise实例<br />
+        6.MyPromise.resolve静态方法，接受一个值，返回一个新的promise实例，状态为resolve<br />
+        7.MyPromise.reject静态方法，接受一个值，返回一个新的promise实例，状态为reject<br />
+    </div>
     <script>
 
         const d=function(){
