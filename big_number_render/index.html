@@ -15,12 +15,12 @@
 </head>
 <body>
     <div class="title">超大数据渲染</div>
-    <div>
-        <input type="number" id='renderCount' placeholder="默认100000条数据">
+    <div style="text-align: center;margin:10px 0;">
+        渲染<input type="number"  id='renderCount' placeholder="默认100000条数据">万条数据
         <button onclick="directRender()">直接渲染</button>
         <button onclick="renderBigData()">RAF+Fragement渲染</button>
     </div>
-    <div style="color:#a4a4a4;margin-bottom:10px;font-size: 12px;">
+    <div style="color:#a4a4a4;margin-bottom:10px;font-size: 12px">
         因为浏览器渲染进程和JS进程是互斥的，渲染进程占用时间过长会导致浏览器假死用户无法操作，所以大量数据渲染的情况下，采用切片渲染并且使用window.requestAnimationFrame<br />
         一帧内浏览器需要处理:<br />
         1.处理用户的交互<br />
