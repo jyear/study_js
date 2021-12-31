@@ -92,7 +92,7 @@
           try {
             let result = null;
 
-            if (type === "resolved") {
+            if (type === RESOLVED) {
               // 当前then没有第一个函数的时候，直接resolve
               if (!onResolved) {
                 resolve(_this.value);
@@ -122,17 +122,17 @@
           }
         }
         if (_this.status === RESOLVED) {
-          handle(onResolved, "resolved");
+          handle(onResolved, RESOLVED);
         }
         if (_this.status === REJECTED) {
-          handle(onRejected, "rejected");
+          handle(onRejected, REJECTED);
         }
         if (_this.status === PENDING) {
           _this.successCallbacks.push(() => {
-            handle(onResolved, "resolved");
+            handle(onResolved, RESOLVED);
           });
           _this.errorCallbacks.push(() => {
-            handle(onRejected, "rejected");
+            handle(onRejected, REJECTED);
           });
         }
       });
