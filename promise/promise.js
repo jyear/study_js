@@ -30,7 +30,11 @@
         });
       }
     };
-    fnCallback(resolve, reject);
+    try {
+      fnCallback(resolve, reject);
+    } catch (err) {
+      reject(err);
+    }
   };
   MyPromise.resolve = function (value) {
     return new MyPromise((resolve) => {
