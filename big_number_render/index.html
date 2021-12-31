@@ -26,9 +26,11 @@
         1.处理用户的交互<br />
         2.JS 解析执行<br />
         3.帧开始。窗口尺寸变更，页面滚去等的处理<br />
-        4.requestAnimationFrame(rAF)<br />
+        4.window.requestAnimationFrame(rAF)<br />
         5.布局<br />
         6.绘制<br />
+        7.如果上面所有动作小于16.7ms(1秒60帧，小于一帧的时间)，那么会调用window.requestIdleCallback(rIC)<br />
+        8.帧结束<br />
     </div>
     <div style="color:#a4a4a4;margin-bottom:10px;text-align: center;font-size: 12px;" id='renderInfo'></div>
     <div id="container">

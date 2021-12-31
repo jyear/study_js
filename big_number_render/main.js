@@ -35,7 +35,7 @@ const renderBigData = () => {
   let renderCount = 0;
   let useTime = 0;
   const dataLength = data.length;
-  const renderSlickLength = 5000; // 每片的数据长度
+  const renderSlickLength = 1000; // 每片的数据长度
   const times = [];
   let startTime = 0;
   function doRender() {
