@@ -15,9 +15,9 @@ const clearContainer = () => {
   document.querySelector("#renderInfo").innerHTML = "";
 };
 
+// 对切片出来的数据进行渲染
 const sliceRender = (data) => {
   const domFragement = document.createDocumentFragment();
-  console.log(data);
   data.forEach((item, index) => {
     const div = document.createElement("div");
     div.innerHTML = `${item.key}--${item.name}`;
@@ -34,7 +34,7 @@ const renderBigData = () => {
   let renderCount = 0;
   let useTime = 0;
   const dataLength = data.length;
-  const renderSlickLength = 5000;
+  const renderSlickLength = 5000; // 每片的数据长度
 
   function doRender() {
     const end =
