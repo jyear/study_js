@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>顶堆和堆排序</title>
+    <style>
+        pre{
+            background-color: #ccc;
+            padding: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <div>小顶堆&大顶堆</div>
+        <pre id='xiaodingdui'></pre>
+        <div>执行结果：<span id="result"></span></div>
+    </div>
+    <script id='xiaodingduiScript'> 
+const arr=[4,6,1,8,3,7]
+// 小顶堆 二叉树左边节点的值小于等于右边节点的值
+minHeap(arr)
+
+function minHeap(arr){
+    var a=10;
+    let start=Math.floor(arr.length/2-1);            
+    for(let i=start;i>=0;i--){
+        heapify(arr,i);
+    }
+    return arr;
+    function heapify(array,index){
+        let leftIndex=2*index+1;
+        let rightIndex=2*index+2;
+        let min=index;   
+        //大顶堆则array[leftIndex] > array[min]
+        if(leftIndex < array.length&&array[leftIndex] < array[min]){
+            min=leftIndex;
+        }
+        //大顶堆则array[rightIndex] > array[min]
+        if(rightIndex < array.length&&array[rightIndex] < array[min]){
+            min=rightIndex;
+        }
+        if(min !== index){
+            let temp=array[min];
+            array[min]=array[index];
+            array[index]=temp;
+            heapify(array,min);
+        } 
+    }
+}
+document.querySelector("#result").innerHTML=`[${arr.join(',')}]`
+    </script>
+    <script>
+        const str=document.querySelector("#xiaodingduiScript").innerHTML;
+        document.getElementById("xiaodingdui").innerHTML=str;
+    </script>
+    <div>
+        <hr></hr>
+        <div>堆排序=>基于小顶堆</div>
+        <pre id="xiaodingduiSort">
+        </pre>
+        <div id="result2"></div>
+    </div>
+    <script id='xiaodingduSortScript'>
+const arr2=[4,6,1,8,3,7]
+// 小顶堆 二叉树左边节点的值小于等于右边节点的值
+function minHeap(arr){
+    var a=10;
+    let start=Math.floor(arr.length/2-1);            
+    for(let i=start;i>=0;i--){
+        heapify(arr,i);
+    }
+    return arr;
+    function heapify(array,index){
+        let leftIndex=2*index+1;
+        let rightIndex=2*index+2;
+        let min=index;   
+        //大顶堆则array[leftIndex] > array[min]
+        if(leftIndex < array.length&&array[leftIndex] < array[min]){
+            min=leftIndex;
+        }
+        //大顶堆则array[rightIndex] > array[min]
+        if(rightIndex < array.length&&array[rightIndex] < array[min]){
+            min=rightIndex;
+        }
+        if(min !== index){
+            let temp=array[min];
+            array[min]=array[index];
+            array[index]=temp;
+            heapify(array,min);
+        } 
+    }
+}
+const res=[];
+const len2=arr2.length
+// 把最小的取出，剩余的arr 重新构建小顶堆，循环取出直到清空,
+// 如果是从大到小 则构建大顶堆，取出最大的，然后重新构建的大顶堆，直至清空
+for(let i=0;i < len2;i++){
+    if(arr2.length<=0) break;
+    minHeap(arr2);
+    res.push(arr2[0]);
+    arr2.shift();
+}
+document.querySelector("#result2").innerHTML=`[${res.join(',')}]`
+    </script>
+<script>
+    const str1=document.querySelector("#xiaodingduSortScript").innerHTML;
+    document.getElementById("xiaodingduiSort").innerHTML=str1;
+</script>
+
+
+</body>
+</html>

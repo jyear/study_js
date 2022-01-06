@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>数组排序几种简单方法</title>
+</head>
+<body>
+    <div>
+        
+        <div>
+            排序前：<input id='sortBefore' type="text" placeholder="数字逗号分隔">
+            <select name="" id="sortType" placeholder="排序方式">
+                <option value="1">冒泡排序</option>
+                <option value="2">快速排序</option>
+                <option value="3">插入排序</option>
+                <option value="4">选择排序</option>
+            </select>
+            <button onclick='Sort()'>排序</button>
+            排序后：<span id='sortAfter'></span>
+            <div>冒泡排序</div>
+            <div style='font-size:12px'>
+                1.比较相邻的元素,如果前一个比后一个大,则交换位置<br />
+                2.第一轮最后一个应该是最大的<br />
+                3.按照第一步继续循环<br />
+                4.第二轮最后一个应该是第二大的<br />
+                5.时间复杂度O(n^2)<br />
+            </div> 
+            <div>快速排序</div>
+            <div style='font-size:12px'>
+                1.取中间位置数据data<br />
+                2.第一轮遍历比data小的放左边，比data大的放右边<br />
+                3.左边，data, 右边的分别递归快速排序<br />
+                4.第二轮最后一个应该是第二大的<br />
+            </div> 
+            <div>插入排序</div>
+            <div style='font-size:12px'>
+                1.默认第一个已经排位好<br />
+                2.后面比前面小的直接插入到前面的正确位置<br />
+            </div> 
+            <div>选择排序</div>
+            <div style='font-size:12px'>
+                从后方选择最小的放在i当前位置
+            </div> 
+        </div>
+    </div>
+    <script>
+        function Sort(){
+            const type=document.querySelector("#sortType").value;
+            var arr = document.querySelector("#sortBefore").value.split(',')
+            switch(type){
+                case '1':
+                    arr=bubbleSort(arr);
+                    break;
+                case '2':
+                    arr=fastSort(arr);
+                    break;
+                case '3':
+                    arr=insertSort(arr);
+                    break;
+                case '4':
+                    arr=selectionSort(arr);
+                    break;
+            }
+            document.querySelector("#sortAfter").innerHTML=`[${arr.join(',')}]`;
+        }
+        // 冒泡排序
+        function bubbleSort(arr) {
+            var len = arr.length;
+            for(var i=0;i<len;i++){
+                for(var j=0;j<len;j++){
+                    if(arr[j]>arr[j+1]){
+                        var temp=arr[j];
+                        arr[j]=arr[j+1];
+                        arr[j+1]=temp;
+                    }
+                }
+            }
+            return arr;
+        }
+        // 快速排序
+        function fastSort(arr){
+            if(arr.length<=1) return arr;
+            var middleIndex=Math.floor(arr.length/2);
+            var middleValue=arr.splice(middleIndex,1)[0];
+
+            var left=[];
+            var right=[];
+
+            arr.forEach(item=>{
+                if(item<middleValue){
+                    left.push(item);
+                }else{
+                    right.push(item);
+                }
+            })
+
+            return fastSort(left).concat([middleValue],fastSort(right));
+        }
+        // 插入排序[4,3,6]
+        function insertSort(arr){
+            var len=arr.length
+            for(var i=1;i<len;i++){
+                if(arr[i]<arr[i-1]){
+                    console.log(i)
+                    var temp=arr[i]
+                  
+                    arr[i]=arr[i-1];
+                    var j=i-1
+                    for(;j>=0;j--){
+                        if(arr[j]>temp){
+                            arr[j+1]=arr[j];
+                            continue;
+                        }
+                        break;
+                    }
+                    // while(j>=0&&temp<arr[j]){      
+                    //     arr[j+1]=arr[j];
+                    //     j--;
+                    // }
+                    arr[j+1]=temp;
+                }
+            }
+            console.log(arr)
+            return arr;
+        }
+        // 选择排序
+        function selectionSort(arr){
+            var len=arr.length,temp;
+            for(var i=0;i<len-1;i++){
+                var main=arr[i];
+                for(var j=i+1;j<len;j++){
+                    if(arr[j]<main){
+                        temp=arr[j];
+                        arr[j]=main;
+                        main=temp;
+                    }
+                }
+                arr[i]=main;
+            }
+            return arr;
+        }
+
+        
+    </script>
+</body>
+</html>
