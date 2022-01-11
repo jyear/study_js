@@ -6,14 +6,13 @@ let id = 0;
 
 class NormalModule {
   constructor({ loaders, request, context }) {
-    console.log(222, request, context);
     this.loaders = loaders;
     this.request = request; // 相对路径
     this.context = context;
     this.id = id++;
     this.dependencies = [];
     this.source = null; // 当前模块所在文件夹路径
-    console.log(context, request);
+    console.log(this.loaders);
     this.resourcePath = path.resolve(context, request); // 绝对路径
   }
 
@@ -45,6 +44,7 @@ class NormalModule {
     }
     // 拿到当前loader的pitch方法
     const fn = this.loaders[loaderContext.loaderIndex].pitch;
+
     loaderContext.loaderIndex++;
 
     // 如果不存在，执行下一个

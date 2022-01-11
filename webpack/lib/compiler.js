@@ -17,7 +17,6 @@ class Compilier {
 
   // 创建模块工厂函数
   createNormalModuleFactory() {
-    console.log(0, this.options);
     const moduleFactory = new NormalModuleFactory(
       this.options.context,
       this.options.module || {}

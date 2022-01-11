@@ -14,7 +14,7 @@ function parser() {
       // 把当前依赖的模块加入到数组中，其实这存的是字符串，
       // 例如 如果当前js文件 有一句 import message from './message.js'，
       // './message.js' 等于 node.source.value
-      console.log(555, this.dependencies);
+
       this.dependencies.push(node.source.value);
     },
   });

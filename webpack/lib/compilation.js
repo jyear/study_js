@@ -45,7 +45,7 @@ class Compilation {
 
   seal(callback) {
     // 源码中，此处会进行一些优化操作，这里略过
-    // console.log(this);
+    console.log(this);
     this.buildChunkGraph();
     this.createChunkAssets();
     callback();

@@ -11,7 +11,7 @@ const config = {
     rules: [
       {
         test: ".js",
-        loader: require("./loaders/demo-loader"),
+        loader: require("./loaders/demo-loader.js"),
       },
     ],
   },
