@@ -19,3 +19,6 @@
 +  11.所有模块编译完调用compilation.addEntry传入的callback，
 +  12.在compilation.addEntry传入的callback内执行在compilation.seal,此时打印this==本次编译的compilation，已经执行完编译阶段
 +  13.在seal内执行chunk，根据模板生成文件等操作
+
+<img src="./webpack.png" width="100%">
+<img src="./webpack2.png" width="100%">

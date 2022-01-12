@@ -6,7 +6,6 @@ const Compilation = require("./compilation");
 
 class Compilier {
   constructor(config) {
-    console.log("配置：", config);
     this.options = config;
     this.hooks = {
       beforeCompile: new AsyncSeriesHook(),
@@ -43,7 +42,7 @@ class Compilier {
     // 开始执行打包
     console.log("开始执行打包");
     // 创建模块工厂函数
-    console.log(this.context);
+
     const moduleFactory = this.createNormalModuleFactory();
     const compilation = new Compilation(this, moduleFactory);
     const { context, entry, fileName: name } = this.options;
