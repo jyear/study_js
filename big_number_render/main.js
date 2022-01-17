@@ -45,7 +45,7 @@ const renderBigData = () => {
         : renderKey + renderSlickLength;
 
     const currentData = data.slice(renderKey, end);
-    window.requestAnimationFrame(() => {
+    const renderer = () => {
       startTime = new Date().getTime();
       renderCount += 1;
       console.log(`RequestAnimationFrame: ${renderCount}-${end}`);
@@ -63,7 +63,8 @@ const renderBigData = () => {
         return;
       }
       doRender();
-    });
+    };
+    window.requestAnimationFrame(renderer);
   }
   doRender();
 };
@@ -86,6 +87,5 @@ const directRender = () => {
       data.length
     }条数据`;
     document.querySelector("#renderInfo").innerHTML = str;
-    console.log(str);
   });
 };
