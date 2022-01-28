@@ -256,8 +256,35 @@
 
 **scheduler.development.js**
 scheduler是react的任务调度，时间切片等都依赖此js<br />
-workLoop是核心函数，他不关心react  react-dom相关，只关心任务队列，以及任务优先级等东西
+workLoop是核心函数，他不关心react  react-dom相关，只关心任务队列，以及任务优先级等东西<br />
+requestHostCallback是封装的时间调度相关，flushwork主要是workloop调用的前置判断以及调用workloop<br />
+taskQueue是使用优先级小顶堆算法排序的数组，peek取出的永远是优先级最高的任务<br />
+
 <pre>
+// 在SSR和老IE上  使用setImmediate来完成出发
+if (typeof localSetImmediate === 'function') {
+  // Node.js and old IE.
+  schedulePerformWorkUntilDeadline = function () {
+    localSetImmediate(performWorkUntilDeadline);
+  };
+} else if (typeof MessageChannel !== 'undefined') {
+  // DOM and Worker environments.
+  // We prefer MessageChannel because of the 4ms setTimeout clamping.
+  var channel = new MessageChannel();
+  var port = channel.port2;
+  channel.port1.onmessage = performWorkUntilDeadline;
+
+  schedulePerformWorkUntilDeadline = function () {
+    port.postMessage(null);
+  };
+} else {
+  // We should only fallback here in non-browser environments.
+  schedulePerformWorkUntilDeadline = function () {
+    localSetTimeout(performWorkUntilDeadline, 0);
+  };
+}
+
+
 function workLoop(hasTimeRemaining, initialTime) {
   var currentTime = initialTime;
   advanceTimers(currentTime);
@@ -265,8 +292,6 @@ function workLoop(hasTimeRemaining, initialTime) {
 
   // while循环 enableSchedulerDebugging是个变量 默认未false
   // 循环到currentTask为null或者enableSchedulerDebugging=true为止
-  // taskQueue是使用优先级小顶堆算法排序的数组，peek取出的永远是优先级最高的任务
-  // 
   while (currentTask !== null && !(enableSchedulerDebugging )) {
     if (currentTask.expirationTime > currentTime && (!hasTimeRemaining || shouldYieldToHost())) {
       break;
